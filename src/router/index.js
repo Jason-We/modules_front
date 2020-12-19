@@ -8,20 +8,42 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    children : [
+      {
+        path: '/about',
+        name: 'About',
+        meta: { title: '关于' },
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+      },
+      {
+        path:'/hello',
+        name:'Hello',
+        component: () => import('../components/HelloWorld.vue'),
+        meta:{title :'Hello'},
+      },
+    ]
   },
+
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/dashboard',
+    name:'Dashboard',
+    component: () => import('../components/pages/Dashboard.vue'),
+    meta:{title :'Dashboard'}
   },
+
   {
     path: '/login',
     component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
     meta: { title: '登录' }
+  },
+  {
+    path: '/register',
+    component: () => import(/* webpackChunkName: "login" */ '../views/Register.vue'),
+    meta: { title: '注册' }
   },
   {
       path: '*',

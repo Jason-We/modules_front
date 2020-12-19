@@ -1,13 +1,13 @@
 <template>
-  <div class="login_wrap">
-    <div>login </div>
+  <div>
+    Register
   </div>
 </template>
 
 
 <script>
 export default {
-  name:'Login',
+  name:'Register',
   data() {
     return {
 
