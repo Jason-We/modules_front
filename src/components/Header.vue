@@ -1,24 +1,27 @@
 <template>
   <div class="header">
-
     <el-menu
       class="el-menu-header"
       :default-active="onRoutes"
       mode="horizontal"
-      text-color="#bfcbd9"
+      text-color="rgb(101 106 111)"
       active-text-color="#20a0ff"
       unique-opened
-      router>
-        <template v-for="item in items">
-          <el-menu-item :index="item.index" :key="item.index">
-            <span slot="title">{{item.title}}</span>
-          </el-menu-item>
-        </template>
+      router
+    >
+      <template v-for="item in items">
+        <el-menu-item :index="item.index" :key="item.index">
+          <span slot="title">{{ item.title }}</span>
+        </el-menu-item>
+      </template>
     </el-menu>
     <div class="button_grp">
-      <a href="/login" target=""><el-button size="middle" type="primary" plain>登录</el-button></a>
-      <a href="/register"><el-button size="middle"  type="primary" plain>注册</el-button></a>
-      
+      <a href="/login" target=""
+        ><el-button class="button_item" size="middle" type="primary" plain>登录</el-button></a
+      >
+      <a href="/register"
+        ><el-button class="button_item" size="middle" type="primary" plain>注册</el-button></a
+      >
     </div>
   </div>
 </template>
@@ -36,6 +39,10 @@ export default {
         {
           index: "about",
           title: "About",
+        },
+        {
+          index: "info",
+          title: "Info",
         },
       ],
     };
@@ -60,15 +67,30 @@ export default {
   right: 0;
   height: 70px;
 }
-.el-menu-header{
-  max-width: 900px;
+.el-menu.el-menu--horizontal{
+  border-bottom: none;
+  
 }
-.button_grp{
+.el-menu--horizontal>.el-menu-item{
+  height: 70px;
+}
+.el-menu-header {
+  max-width: 900px;
+  height: 70px;
+}
+.button_grp {
   margin-right: 50px;
-  display:flex;
-  padding:10px 10px;
+  display: flex;
+  padding: 17px 10px;
   position: absolute;
-    right:0;
-    top:0;
+  right: 0;
+  top: 0;
+  
+}
+.button_item{
+  margin-right: 15px;
+  height: 35px;
+  width: 90px;
+  line-height: 10px;
 }
 </style>

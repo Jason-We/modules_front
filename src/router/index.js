@@ -7,9 +7,13 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    redirect: '/hello'
+  },
+  {
+    path: '/',
     name: 'Home',
     component: Home,
-    children : [
+    children: [
       {
         path: '/about',
         name: 'About',
@@ -20,19 +24,25 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
       },
       {
-        path:'/hello',
-        name:'Hello',
+        path: '/hello',
+        name: 'Hello',
         component: () => import('../components/HelloWorld.vue'),
-        meta:{title :'Hello'},
+        meta: { title: 'Hello' },
+      },
+      {
+        path: '/info',
+        name: 'Info',
+        component: () => import('../views/Info.vue'),
+        meta: { title: 'Info' },
       },
     ]
   },
 
   {
     path: '/dashboard',
-    name:'Dashboard',
+    name: 'Dashboard',
     component: () => import('../components/pages/Dashboard.vue'),
-    meta:{title :'Dashboard'}
+    meta: { title: 'Dashboard' }
   },
 
   {
@@ -46,9 +56,9 @@ const routes = [
     meta: { title: '注册' }
   },
   {
-      path: '*',
-      component: () => import('../components/pages/404.vue'),
-      meta: {title:'404'}
+    path: '*',
+    component: () => import('../components/pages/404.vue'),
+    meta: { title: '404' }
   }
 ]
 
