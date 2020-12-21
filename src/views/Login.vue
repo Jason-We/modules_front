@@ -1,17 +1,7 @@
 <template>
-  <div class="login_wrap">
-    <div class="logo">
-      <a href="/">
-        <img
-          src="../assets/img/logo.png"
-          alt="logo"
-          width="50px"
-          height="50px"
-        />
-        <span class="logo-title">Vue JS</span>
-      </a>
-    </div>
-    <div class="container_wrap">
+  <div class="comm_wrap">
+    <Logo></Logo>
+    <div class="comm_cont">
       <div class="container">
         <a href="/info" class="banner">
           <img src="../assets/img/poster.jpg" alt="" class="banner_img" />
@@ -49,14 +39,18 @@
                 <el-form-item>
                   <el-input
                     v-model="codeForm.phone"
-                    placeholder="手机号"
+                    placeholder="您的手机号"
                   ></el-input>
                 </el-form-item>
                 <el-form-item class="pwd">
                   <el-input
                     v-model="codeForm.code"
-                    placeholder="验证码"
-                  ></el-input>
+                    placeholder="收到的验证码"
+                  >
+                  <template slot="append">
+                    <el-button>获取验证码</el-button>
+                  </template>
+                  </el-input>
                 </el-form-item>
                 <el-form-item>
                   <el-checkbox-group
@@ -88,7 +82,7 @@
                     </el-dropdown>
                   </span>
                   <span>
-                    <el-button type="text" @click="goRegis">注册账号</el-button>
+                    <a href="/register" class="font_size_12 font_color_blue">注册账号</a>
                   </span>
                 </div>
                 
@@ -109,8 +103,12 @@
 
 
 <script>
+import Logo from '../components/Logo'
 export default {
   name: "Login",
+  components:{
+    Logo
+  },
   data() {
     return {
       login_switch: true,
@@ -142,44 +140,11 @@ export default {
 </script>
 
 <style>
-.login_wrap {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #f7f7f7;
-}
-
-.logo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 45px 60px;
-  height: 60px;
-}
-
-.logo-title {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 20px;
-  font-style: oblique;
-  font-weight: bold;
-}
-
 .container {
   display: flex;
   background: #fff;
   border-radius: 3px;
   box-shadow: 0 2px 8px 0 rgba(219, 219, 219, 0.5);
-}
-.container_wrap {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-img {
-  vertical-align: middle;
 }
 .banner {
   position: relative;

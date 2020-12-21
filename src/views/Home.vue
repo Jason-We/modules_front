@@ -40,7 +40,7 @@
     top: 70px;
     left: 0;
     right: 0;
-    bottom: 0;
     background: #f0f0f0;
+    width : 100%;
   }
 </style>

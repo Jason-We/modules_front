@@ -56,6 +56,21 @@ const routes = [
     meta: { title: '注册' }
   },
   {
+    path:'/forgetPass',
+    component : () => import('../views/ForgetPass.vue'),
+    meta:{title :'忘记密码'}
+  },
+  {
+    path:'/resetPass',
+    component : () => import('../views/ResetPass.vue'),
+    meta:{title :'重置密码'}
+  },
+  {
+    path:'/laws',
+    component : () => import('../views/Laws.vue'),
+    meta : {title :'服务条款'}
+  },
+  {
     path: '*',
     component: () => import('../components/pages/404.vue'),
     meta: { title: '404' }

@@ -12,3 +12,32 @@ a {
 *, :after, :before {
   box-sizing: border-box;
 }
+img {
+  vertical-align: middle;
+}
+.font_size_12{
+  font-size: 12px;
+}
+.font_color_green{
+  color: #0db3a6
+}
+.font_color_blue{
+  color: #409EFF;
+}
+.text_align_right{
+  text-align: right;
+}
+.comm_wrap{
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #f7f7f7;
+}
+.comm_cont{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
