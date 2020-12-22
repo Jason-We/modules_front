@@ -9,14 +9,14 @@
         <div class="form_con_wraper">
           <el-tabs stretch>
             <el-tab-pane class="header_tabs" label="账号登陆">
-              <el-form v-if="login_switch" ref="loginForm" :model="loginForm">
-                <el-form-item>
+              <el-form v-if="login_switch" ref="loginForm" :rules="login_rules" :model="loginForm" status-icon>
+                <el-form-item prop="account">
                   <el-input
                     v-model="loginForm.account"
                     placeholder="手机号/邮箱"
                   ></el-input>
                 </el-form-item>
-                <el-form-item class="pwd">
+                <el-form-item class="pwd" prop="password">
                   <el-input
                     v-model="loginForm.password"
                     placeholder="密码"
@@ -35,14 +35,14 @@
                   <el-button type="primary" class="login_btn">登 录</el-button>
                 </el-form-item>
               </el-form>
-              <el-form v-else ref="codeForm" :model="codeForm">
-                <el-form-item>
+              <el-form v-else ref="codeForm" :model="codeForm" :rules="code_rules" status-icon>
+                <el-form-item prop="phone">
                   <el-input
                     v-model="codeForm.phone"
                     placeholder="您的手机号"
                   ></el-input>
                 </el-form-item>
-                <el-form-item class="pwd">
+                <el-form-item class="pwd" prop="code">
                   <el-input
                     v-model="codeForm.code"
                     placeholder="收到的验证码"
@@ -122,6 +122,22 @@ export default {
         code: "",
         remember: "",
       },
+      login_rules:{
+        account:[
+          {required:true,message:'请输入手机号或邮箱',trigger:'blur'},
+          {pattern:/^1[3456789]\d{9}$|^\w{6,18}@\w{2,4}\.(com)|(net)$/,message:'手机号/邮箱格式有误',trigger:'blur'}
+        ],
+        password:[
+          {required:true,message:'请输入密码',trigger:'blur'},
+          { pattern: /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/, message: '密码为6-20位英文字母,数字或者符号(除空格),且字母,数字和标点符号至少包含两种',trigger:'blur' }
+        ]
+      },
+      code_rules:{
+        phone:[
+          {required:true,message:'请输入手机号或邮箱',trigger:'blur'},
+          {pattern:/^1[3456789]\d{9}$/,message:'手机号格式有误',trigger:'blur'}
+        ]
+      }
     };
   },
   computed: {
@@ -132,9 +148,7 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    goRegis(){
-      this.$router.push('/register');
-    }
+    
   },
 };
 </script>
