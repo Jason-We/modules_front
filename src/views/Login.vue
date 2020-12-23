@@ -9,17 +9,17 @@
         <div class="form_con_wraper">
           <el-tabs stretch>
             <el-tab-pane class="header_tabs" label="账号登陆">
-              <el-form v-if="login_switch" ref="loginForm" :rules="login_rules" :model="loginForm" status-icon>
+              <el-form v-show="login_switch" ref="loginForm" :rules="login_rules" :model="loginForm" >
                 <el-form-item prop="account">
                   <el-input
                     v-model="loginForm.account"
-                    placeholder="手机号/邮箱"
+                    placeholder="手机号/邮箱" clearable
                   ></el-input>
                 </el-form-item>
                 <el-form-item class="pwd" prop="password">
                   <el-input
-                    v-model="loginForm.password"
-                    placeholder="密码"
+                    v-model="loginForm.password" type="password"
+                    placeholder="密码" clearable
                   ></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -32,14 +32,14 @@
                   <a href="/forgetPass" class="forget_pass">忘记密码?</a>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" class="login_btn">登 录</el-button>
+                  <el-button type="primary" class="login_btn" @click="login('loginForm')">登 录</el-button>
                 </el-form-item>
               </el-form>
-              <el-form v-else ref="codeForm" :model="codeForm" :rules="code_rules" status-icon>
+              <el-form v-show="!login_switch" ref="codeForm" :model="codeForm" :rules="code_rules" >
                 <el-form-item prop="phone">
                   <el-input
                     v-model="codeForm.phone"
-                    placeholder="您的手机号"
+                    placeholder="您的手机号" clearable
                   ></el-input>
                 </el-form-item>
                 <el-form-item class="pwd" prop="code">
@@ -48,7 +48,7 @@
                     placeholder="收到的验证码"
                   >
                   <template slot="append">
-                    <el-button>获取验证码</el-button>
+                    <el-button :disabled="checkPhoneValid" @click="getCode" >获取验证码</el-button>
                   </template>
                   </el-input>
                 </el-form-item>
@@ -61,7 +61,7 @@
                   </el-checkbox-group>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" class="login_btn">登 录</el-button>
+                  <el-button type="primary" class="login_btn" @click="login('codeForm')">登 录</el-button>
                 </el-form-item>
               </el-form>
               <div class="other_ops">
@@ -112,6 +112,7 @@ export default {
   data() {
     return {
       login_switch: true,
+      checkValid:false,
       loginForm: {
         account: "",
         password: "",
@@ -125,17 +126,19 @@ export default {
       login_rules:{
         account:[
           {required:true,message:'请输入手机号或邮箱',trigger:'blur'},
-          {pattern:/^1[3456789]\d{9}$|^\w{6,18}@\w{2,4}\.(com)|(net)$/,message:'手机号/邮箱格式有误',trigger:'blur'}
+          {pattern:/^1[3456789]\d{9}$|^\w{6,18}@\w{2,4}\.(com)$/,message:'手机号/邮箱格式有误',trigger:'blur'}
         ],
         password:[
           {required:true,message:'请输入密码',trigger:'blur'},
-          { pattern: /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/, message: '密码为6-20位英文字母,数字或者符号(除空格),且字母,数字和标点符号至少包含两种',trigger:'blur' }
         ]
       },
       code_rules:{
         phone:[
-          {required:true,message:'请输入手机号或邮箱',trigger:'blur'},
+          {required:true,message:'请输入手机号',trigger:'blur'},
           {pattern:/^1[3456789]\d{9}$/,message:'手机号格式有误',trigger:'blur'}
+        ],
+        code:[
+          {required:true, message:'请输入验证码',trigger:'blur'}
         ]
       }
     };
@@ -144,11 +147,30 @@ export default {
     loginOps() {
       return this.login_switch ? "验证码登录" : "密码登录";
     },
+    checkPhoneValid(){
+      let reg = new RegExp(/^1[3456789]\d{9}$/);
+      return !reg.test(this.codeForm.phone);
+    }
   },
   created() {},
   mounted() {},
   methods: {
-    
+    login(form){
+      let _this = this;
+      this.$refs[form].validate((valid) => {
+        if(valid){
+          if(form === 'loginForm'){
+
+          }
+          alert('前端验证通过，可以请求后端');
+        }else{
+          alert('前端验证未通过');
+        }
+      });
+    },
+    getCode(){
+      console.log(this.codeForm.phone);
+    }
   },
 };
 </script>
@@ -248,5 +270,8 @@ export default {
 }
 .other_ops_items > span:last-child {
   float:right;
+}
+.el-input--small {
+    font-size: 15px;
 }
 </style>
