@@ -160,9 +160,30 @@ export default {
       this.$refs[form].validate((valid) => {
         if(valid){
           if(form === 'loginForm'){
-
+            if(_this.loginForm.account.indexOf("@") === -1){
+              axios.post('/login',{
+                phone:_this.loginForm.account,
+                password : _this.loginForm.password
+              }).then(res => {
+                if(res.data.code === 200){
+                  _this.$router.push('/dashboard');
+                }else{
+                  _this.$message.error("登录失败 : "+res.data.msg);
+                }
+              })
+            }else{
+              axios.post('/login',{
+                mail:_this.loginForm.account,
+                password : _this.loginForm.password
+              }).then(res => {
+                if(res.data.code === 200){
+                  _this.$router.push('/dashboard');
+                }else{
+                  _this.$message.error("登录失败 : "+res.data.msg);
+                }
+              })
+            }
           }
-          alert('前端验证通过，可以请求后端');
         }else{
           alert('前端验证未通过');
         }
