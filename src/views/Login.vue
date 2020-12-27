@@ -241,6 +241,9 @@ export default {
 .el-form-item__content .el-input__inner {
   height: 40px;
 }
+.el-form-item__content .el-input__inner:hover{
+  border-color:#66b1ff;
+}
 .pwd {
   margin-top: 30px;
 }

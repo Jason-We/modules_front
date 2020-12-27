@@ -66,9 +66,10 @@ export default {
   left: 0;
   right: 0;
   height: 70px;
+  border-bottom: 2px solid rgb(223, 234, 245);
 }
 .el-menu.el-menu--horizontal{
-  border-bottom: none;
+  border-bottom: 2px solid rgb(223, 234, 245);
   
 }
 .el-menu--horizontal>.el-menu-item{

@@ -22,14 +22,12 @@
                   <el-input v-model="form.mail" placeholder="请输入您的邮箱号" clearable></el-input>
               </el-form-item>
               <el-form-item prop="v_code">
-                <el-input
+                <el-input class="input-code"
                   v-model="form.v_code"
                   placeholder="收到的验证码"
                 >
-                <template slot="append">
-                  <el-button :disabled='checkvalid' @click="getCode">获取验证码</el-button>
-                </template>
                 </el-input>
+                <el-button class="btn-code" :disabled='checkvalid' @click="getCode">{{btnTxt}}</el-button>
               </el-form-item>
               <el-form-item prop="nick">
                 <el-input v-model="form.nick" placeholder="昵称"  clearable ></el-input>
@@ -99,6 +97,9 @@ export default {
     }
     return {
       togle:true,
+      btnTxt:'获取验证码',
+      waitTime:61,
+      timer:null,
       form:{
         phone:'',
         mail:'',
@@ -147,14 +148,27 @@ export default {
     toggle_text(){
       return this.togle ? "手机号无法注册？" : "邮箱无法注册？";
     },
-    checkvalid(){
-      let regPhone = new RegExp(/^1[3456789]\d{9}$/);
-      let regMail = new RegExp(/^\w{6,18}@\w{2,4}\.(com)$/);
-      if(this.togle){
-        return !regPhone.test(this.form.phone);
-      }else{
-        return !regMail.test(this.form.mail);
-      }
+    checkvalid :{
+      get: function(){
+        let regPhone = new RegExp(/^1[3456789]\d{9}$/);
+        let regMail = new RegExp(/^\w{6,18}@\w{2,6}\.(com)$/);
+        if(this.togle){
+          if(this.waitTime == 61){
+            if(regPhone.test(this.form.phone)){
+              return false;
+            }
+          }
+          return true;
+        }else{
+          if(this.waitTime == 61){
+            if(regMail.test(this.form.mail)){
+              return false;
+            }
+          }
+          return true;
+        }
+      },
+      set:function(){}  
     }
   },
   created() {
@@ -165,10 +179,31 @@ export default {
   },
   methods: {
     submit(){
+      let _this = this;
       this.$refs.form.validate((valid) => {
         if(valid){
-          alert("前端验证完成");
-          console.log(this.form);
+          if(this.togle){
+
+          }else{
+            axios.get('/regis',{
+              params:{
+                regType:'mail',
+                regNum:this.form.mail,
+                code:this.form.v_code,
+                nickname:this.form.nick,
+                password:this.form.password              
+              }
+            }).then(function (res) {
+                if(res.status === 200){
+                  if(res.data.code === 200){
+                    _this.$message.success("注册成功");
+                    _this.$router.push('/dashboard');
+                  }else{
+                    _this.$message.error(res.data.msg);
+                  }
+                } 
+            })
+          }
         }else{
           alert('前端验证失败');
         }
@@ -180,13 +215,41 @@ export default {
       this.togle = !this.togle;
     },
     getCode(){
+      let that = this;
       if(this.togle){
         console.log(this.form.phone);
       }else{
+        axios.get('/mailCode',{
+          params:{
+            mailNo:this.form.mail
+          }
+        });
+        this.checkvalid = true; 
+        this.countDown();
+        this.timer = setInterval(function(){
+          if(that.waitTime>1){
+              that.countDown();
+          }else{
+              clearInterval(that.timer);
+              that.timer = null;
+              that.btnTxt = '获取验证码';
+              that.checkvalid = false;
+              that.waitTime = 61;
+          }
+        },1000);
         console.log(this.form.mail);
       }
+    },
+    countDown(){
+      this.waitTime -= 1;
+      this.btnTxt = this.waitTime+'s';
     }
-  }
+
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);        
+    this.timer = null;
+	}
 };
 </script>
 
@@ -229,5 +292,19 @@ export default {
 }
 .el-input--small {
     font-size: 15px;
+}
+.el-form-item__content .el-input__inner:hover{
+  border-color:#66b1ff;
+}
+.input-code{
+  width: 210px;
+}
+.btn-code{
+  width: 100px;
+  height:40px;
+  margin-left: 10px;
+  border-radius: 3px;
+  font-size: 15px;
+  padding:5px 10px;
 }
 </style>
