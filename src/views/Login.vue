@@ -126,7 +126,7 @@ export default {
       login_rules:{
         account:[
           {required:true,message:'请输入手机号或邮箱',trigger:'blur'},
-          {pattern:/^1[3456789]\d{9}$|^\w{6,18}@\w{2,4}\.(com)$/,message:'手机号/邮箱格式有误',trigger:'blur'}
+          {pattern:/^1[3456789]\d{9}$|^\w{6,18}@\w{2,7}\.(com)$/,message:'手机号/邮箱格式有误',trigger:'blur'}
         ],
         password:[
           {required:true,message:'请输入密码',trigger:'blur'},

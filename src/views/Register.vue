@@ -33,7 +33,7 @@
                 <el-input v-model="form.nick" placeholder="昵称"  clearable ></el-input>
               </el-form-item>
               <el-form-item prop="password">
-                <el-input v-model="form.password" placeholder="密码" clearable></el-input>
+                <el-input v-model="form.password" placeholder="密码" clearable type="password" show-password></el-input>
               </el-form-item>
               <el-form-item>
                 <div class="font_size_12">
@@ -68,7 +68,7 @@ export default {
   }, 
   data() {
     var regPhone = new RegExp(/^1[3456789]\d{9}$/);
-    var regMail = new RegExp(/^\w{6,18}@\w{2,4}\.(com)$/);
+    var regMail = new RegExp(/^\w{6,18}@\w{2,7}\.(com)$/);
     var checkPhone = (rule,value,callback) => {
       if(this.togle){
         if(!value){
@@ -139,7 +139,7 @@ export default {
         ],
         password:[
           {required:true,message:'请输入密码',trigger:'blur'},
-          { pattern: /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/, message: '密码为6-20位英文字母,数字或者符号(除空格),且字母,数字和标点符号至少包含两种',trigger:'blur' }
+          {pattern: /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/, message: '密码为6-20位英文字母,数字或者符号(除空格),且字母,数字和标点符号至少包含两种',trigger:'blur' }
         ]
       }
     };
@@ -151,7 +151,7 @@ export default {
     checkvalid :{
       get: function(){
         let regPhone = new RegExp(/^1[3456789]\d{9}$/);
-        let regMail = new RegExp(/^\w{6,18}@\w{2,6}\.(com)$/);
+        let regMail = new RegExp(/^\w{6,18}@\w{2,7}\.(com)$/);
         if(this.togle){
           if(this.waitTime == 61){
             if(regPhone.test(this.form.phone)){
@@ -197,7 +197,7 @@ export default {
                 if(res.status === 200){
                   if(res.data.code === 200){
                     _this.$message.success("注册成功");
-                    _this.$router.push('/dashboard');
+                    _this.$router.push('/login');
                   }else{
                     _this.$message.error(res.data.msg);
                   }

@@ -11,15 +11,13 @@
                 <el-input size="large" v-model="form.pheormal" placeholder="您注册时使用的手机号或邮箱"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-input
+                <el-input class="input-code"
                   v-model="form.v_code"
                   placeholder="收到的验证码"
                   size="large"
                 >
-                <template slot="append">
-                  <el-button>获取验证码</el-button>
-                </template>
                 </el-input>
+                <el-button class="btn-code" :disabled='checkvalid' @click="getCode">{{btnTxt}}</el-button>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="onSubmit" class="fgt_btn">重置密码</el-button>
@@ -45,6 +43,9 @@ export default {
         pheormal:'',
         v_code:''
       },
+      btnTxt:'获取验证码',
+      waitTime:61,
+      timer:null,
     };
   },
   components:{
@@ -59,12 +60,15 @@ export default {
   methods: {
     onSubmit(){
       
+    },
+    getCode(){
+      axios.get('')
     }
   }
 };
 </script>
 
-<style scoped>
+<style>
 .fgt_header{
   height: 60px;
   font-weight: 500;
@@ -98,4 +102,19 @@ export default {
   line-height: 40px;
   margin-top: 10px;
 }
+.el-form-item__content .el-input__inner:hover{
+  border-color:#66b1ff;
+}
+.btn-code{
+  width: 100px;
+  height:40px;
+  margin-left: 10px;
+  border-radius: 4px;
+  font-size: 15px;
+  padding:5px 10px;
+  float: right;
+}
+.input-code{
+  width: 210px;
+} 
 </style>
