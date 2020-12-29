@@ -7,7 +7,7 @@
           <div class="fgt_header">找回密码</div>
           <div class="fgt_mid">
             <el-form :model="form" ref="form" :rules="rules">
-              <el-form-item>
+              <el-form-item prop="pheormal">
                 <el-input size="large" v-model="form.pheormal" placeholder="您注册时使用的手机号或邮箱"></el-input>
               </el-form-item>
               <el-form-item>
@@ -57,12 +57,41 @@ export default {
   mounted() {
 
   },
+  computed:{
+    checkvalid:{
+      get:function(){
+        let regPhone = new RegExp(/^1[3456789]\d{9}$/);
+        let regMail = new RegExp(/^\w{6,18}@\w{2,7}\.(com)$/);
+        if(this.form.pheormal.indexOf("@") === -1){
+          if(this.waitTime === 61){
+            if(regPhone.test(this.form.pheormal)){
+              return false;
+            }
+          }
+          return true;
+        }else{
+          if(this.waitTime === 61){
+            if(regMail.test(this.form.pheormal)){
+              return false;
+            }
+          }
+          return true;
+        }
+
+      },
+      set:function(){}
+    }
+  },
   methods: {
     onSubmit(){
       
     },
     getCode(){
-      axios.get('')
+      axios.get('mailCode',{
+        params:{
+          mailNo:this.form.mail
+        }
+      })
     }
   }
 };
