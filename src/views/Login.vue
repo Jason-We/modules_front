@@ -19,7 +19,7 @@
                 <el-form-item class="pwd" prop="password">
                   <el-input
                     v-model="loginForm.password" type="password"
-                    placeholder="密码" clearable
+                    placeholder="密码" clearable show-password
                   ></el-input>
                 </el-form-item>
                 <el-form-item>

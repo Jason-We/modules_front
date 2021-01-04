@@ -96,7 +96,7 @@ export default {
       }
     }
     return {
-      togle:true,
+      togle:false,
       btnTxt:'获取验证码',
       waitTime:61,
       timer:null,
@@ -139,7 +139,7 @@ export default {
         ],
         password:[
           {required:true,message:'请输入密码',trigger:'blur'},
-          {pattern: /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/, message: '密码为6-20位英文字母,数字或者符号(除空格),且字母,数字和标点符号至少包含两种',trigger:'blur' }
+          {pattern: /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/, message: '密码为6-20位英文字母/数字/符号(除空格),且字母/数字/符号至少包含两种',trigger:'blur' }
         ]
       }
     };
@@ -183,7 +183,7 @@ export default {
       this.$refs.form.validate((valid) => {
         if(valid){
           if(this.togle){
-
+            alert('抱歉，暂不支持手机号注册qaq');
           }else{
             axios.get('/regis',{
               params:{
@@ -204,8 +204,6 @@ export default {
                 } 
             })
           }
-        }else{
-          alert('前端验证失败');
         }
       })
     },

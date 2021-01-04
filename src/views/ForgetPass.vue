@@ -10,7 +10,7 @@
               <el-form-item prop="pheormal">
                 <el-input size="large" v-model="form.pheormal" placeholder="您注册时使用的手机号或邮箱"></el-input>
               </el-form-item>
-              <el-form-item>
+              <el-form-item prop="v_code">
                 <el-input class="input-code"
                   v-model="form.v_code"
                   placeholder="收到的验证码"
@@ -46,6 +46,15 @@ export default {
       btnTxt:'获取验证码',
       waitTime:61,
       timer:null,
+      rules:{
+        v_code:[
+          {required:true, message:'请输入验证码',trigger:'change'},
+          {pattern:/^[0-9]{6}$/ , message:'验证码不规范',trigger:'change'}
+        ],
+        pheormal:[
+          {required:true, message:'请输入手机号/邮箱',trigger:'change'},
+        ]
+      }
     };
   },
   components:{
@@ -84,16 +93,60 @@ export default {
   },
   methods: {
     onSubmit(){
-      
-    },
-    getCode(){
-      axios.get('mailCode',{
-        params:{
-          mailNo:this.form.mail
+      let _this = this;
+      this.$refs.form.validate((valid) => {
+        if(valid){
+          if(_this.$store.state.forget_code === '' || _this.$store.state.forget_code != _this.form.v_code){
+            _this.$message.error('验证码错误');
+          }else{
+            _this.$store.commit('setForget_Pheormal',_this.form.pheormal);
+            _this.$router.replace('/resetPass');
+          }
         }
       })
+    },
+    getCode(){
+      let that = this;
+      if(that.form.pheormal.indexOf("@") !== -1){
+        axios.get('/mailCode',{
+          params:{
+            mailNo:this.form.pheormal
+          }
+        }).then(function(res){
+          if(res.status === 200){
+            console.log(res.data);
+            that.$store.commit('setForget_Code',res.data.data);
+          }else{
+            that.$message.error("请求服务器异常");
+          }
+        });
+        this.checkvalid = true; 
+        this.countDown();
+        this.timer = setInterval(function(){
+          if(that.waitTime>1){
+              that.countDown();
+          }else{
+              clearInterval(that.timer);
+              that.timer = null;
+              that.btnTxt = '获取验证码';
+              that.checkvalid = false;
+              that.waitTime = 61;
+          }
+        },1000);
+      }else{
+        alert("抱歉，暂不支持手机号");
+      }
+      
+    },
+    countDown(){
+      this.waitTime -= 1;
+      this.btnTxt = this.waitTime+'s';
     }
-  }
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);        
+    this.timer = null;
+	}
 };
 </script>
 
