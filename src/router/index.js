@@ -41,8 +41,22 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: () => import('../components/pages/Dashboard.vue'),
-    meta: { title: 'Dashboard' }
+    component: () => import('../views/signin/Dashboard.vue'),
+    meta: { title: 'Dashboard' ,permission: true},
+    children:[
+      {
+        path:'/panel',
+        name:'Panel',
+        component: () => inport('../views/signin/Panel.vue'),
+        meta:{title:'Panel' , permission:true}
+      },
+      {
+        path:'/personal',
+        name:'Personal',
+        component: () => import('../views/signin/Personal.vue'),
+        meta:{title:'Personal' , permission:true}
+      }
+    ]
   },
 
   {
@@ -69,6 +83,11 @@ const routes = [
     path:'/laws',
     component : () => import('../views/Laws.vue'),
     meta : {title :'服务条款'}
+  },
+  {
+    path: '/403',
+    component: () => import(/* webpackChunkName: "403" */ '../components/pages/403.vue'),
+    meta: { title: '403' }
   },
   {
     path: '*',
