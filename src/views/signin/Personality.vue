@@ -1,5 +1,5 @@
 <template>
-<h1>peronal page</h1>
+<h1>Personality page</h1>
 </template>
 
 <script>

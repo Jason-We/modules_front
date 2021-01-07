@@ -55,7 +55,25 @@ const routes = [
         name:'Personal',
         component: () => import('../views/signin/Personal.vue'),
         meta:{title:'Personal' , permission:true}
-      }
+      },
+      {
+        path:'/career',
+        name:'Career',
+        component: () => import('../views/signin/Career.vue'),
+        meta:{title:'Career' , permission:true}
+      },
+      {
+        path:'/jobs',
+        name:'Jobs',
+        component: () => import('../views/signin/Jobs.vue'),
+        meta:{title:'Jobs' , permission:true}
+      },
+      {
+        path:'/personality',
+        name:'personality',
+        component: () => import('../views/signin/Personality.vue'),
+        meta:{title:'Personality' , permission:true}
+      },
     ]
   },
 

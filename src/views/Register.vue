@@ -235,7 +235,6 @@ export default {
               that.waitTime = 61;
           }
         },1000);
-        console.log(this.form.mail);
       }
     },
     countDown(){
