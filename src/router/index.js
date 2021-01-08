@@ -43,11 +43,12 @@ const routes = [
     name: 'Dashboard',
     component: () => import('../views/signin/Dashboard.vue'),
     meta: { title: 'Dashboard' ,permission: true},
+    redirect:'/panel',
     children:[
       {
         path:'/panel',
         name:'Panel',
-        component: () => inport('../views/signin/Panel.vue'),
+        component: () => import('../views/signin/Panel.vue'),
         meta:{title:'Panel' , permission:true}
       },
       {

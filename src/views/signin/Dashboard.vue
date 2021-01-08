@@ -1,14 +1,22 @@
 <template>
   <div>
-     <h1>Dashboard</h1>
-    <el-button @click="test" type="">点击测试加解密</el-button>
+    <Header></Header>
+    <div class="content">
+      <transition mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </div>
   </div>
 </template>
 
 
 <script>
 import {encryptBy,decryptBy} from '../../commonjs/mycrypto';
+import Header from './Header.vue'
 export default {
+  components:{
+    Header
+  },
   data() {
     return {
 
@@ -34,5 +42,11 @@ export default {
 </script>
 
 <style scoped>
-
+.content {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  width : 100%;
+}
 </style>
