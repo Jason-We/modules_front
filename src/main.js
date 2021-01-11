@@ -8,15 +8,15 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.config.productionTip = false
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 });
 //使用钩子函数对路由进行权限跳转
-// router.beforeEach((to, from, next) => {
-//   document.title = `${to.meta.title} | modules`;
-//   let role = sessionStorage.getItem('username');
-//   if (!role && to.path !== '/login') {
-//     next('/');
-//   }else{
-//     next();
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  document.title = `${to.meta.title} | modules`;
+  let role = sessionStorage.getItem('userlogin');
+  if (!role && to.meta.permission) {
+    next('/');
+  }else{
+    next();
+  }
+});
 
 new Vue({
   router,

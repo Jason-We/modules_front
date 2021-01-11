@@ -166,10 +166,13 @@ export default {
                 password : _this.loginForm.password
               }).then(res => {
                 if(res.data.code === 200){
+                  sessionStorage.setItem("userlogin",_this.loginForm.account);
                   _this.$router.push('/dashboard');
                 }else{
                   _this.$message.error("登录失败 : "+res.data.msg);
                 }
+              }).catch((err)=>{
+                _this.$message.error("服务器异常 : "+err.response.status);
               })
             }else{
               axios.post('/login',{
@@ -177,10 +180,13 @@ export default {
                 password : _this.loginForm.password
               }).then(res => {
                 if(res.data.code === 200){
+                  sessionStorage.setItem("userlogin",_this.loginForm.account);
                   _this.$router.push('/dashboard');
                 }else{
                   _this.$message.error("登录失败 : "+res.data.msg);
                 }
+              }).catch((err)=>{
+                _this.$message.error("服务器异常 : "+err.response.status);
               })
             }
           }
