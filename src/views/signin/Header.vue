@@ -2,8 +2,8 @@
   <div class="wrapper">
     <el-row>
       <el-col :span="4">
-        <div>
-          <img style="width:50px ;height:50px" src="../../assets/img/logo.png" />
+        <div class="img-logo">
+          <img style="width:60px ;height:60px" src="../../assets/img/logo.png" />
         </div>
       </el-col>
       <el-col :span="12">
@@ -43,8 +43,9 @@
                 <i class="el-icon-s-custom"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="logout">Sign out</el-dropdown-item>
+                <el-dropdown-item command="admin">Admin</el-dropdown-item>
                 <el-dropdown-item command="help">Help</el-dropdown-item>
+                <el-dropdown-item command="logout">Sign out</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
@@ -90,6 +91,8 @@ export default {
         this.$router.push('/');
       }else if(cmd === 'help'){
         this.$router.push('/info');
+      }else if(cmd === 'admin'){
+        this.$router.push('/admin');
       }
     }
   }
@@ -100,11 +103,15 @@ export default {
 .wrapper{
   display: block;
   width: 100%;
-  height :80px;
-  position:absolute;
+  height :60px;
+  position: fixed;
   top:0;
   left:0;
-  padding:5px 0;
+  -webkit-box-shadow: 0 5px 8px 0 rgba(64,106,103,.13);
+  box-shadow: 0 5px 8px 0 rgba(64,106,103,.13);
+  background: rgba(255,255,255,.95);
+  z-index: 10;
+  border-bottom: 2px solid rgb(223, 234, 245);
 }
 .right-dropdown{
   margin-right:30px;
@@ -125,5 +132,20 @@ export default {
 .el-dropdown-link{
   cursor: pointer;
 
+}
+.img-logo{
+  float: right;
+  margin-right: 10px;
+}
+.el-menu-header {
+  height: 60px;
+}
+.el-menu--horizontal>.el-menu-item{
+  color: rgba(255,255,255,0.8);
+  font-size: 16px;
+  font-weight: bold;
+}
+.el-menu.el-menu--horizontal{
+  border-bottom: 2px solid rgb(223, 234, 245);
 }
 </style>

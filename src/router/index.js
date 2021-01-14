@@ -75,6 +75,11 @@ const routes = [
         component: () => import('../views/signin/Personality.vue'),
         meta:{title:'Personality' , permission:true}
       },
+      {
+        path: '/admin',
+        component: () => import(/* webpackChunkName: "login" */ '../views/signin/Admin.vue'),
+        meta: { title: '权限管理' ,permission:true }
+      }
     ]
   },
 

@@ -19,7 +19,7 @@
                 <el-form-item class="pwd" prop="password">
                   <el-input
                     v-model="loginForm.password" type="password"
-                    placeholder="密码" clearable show-password
+                    placeholder="密码" clearable show-password @keyup.enter.native="login('loginForm')"
                   ></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -32,7 +32,7 @@
                   <a href="/forgetPass" class="forget_pass">忘记密码?</a>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" class="login_btn" @click="login('loginForm')">登 录</el-button>
+                  <el-button type="primary" class="login_btn" @click="login('loginForm')" >登 录</el-button>
                 </el-form-item>
               </el-form>
               <el-form v-show="!login_switch" ref="codeForm" :model="codeForm" :rules="code_rules" >
@@ -48,7 +48,7 @@
                     placeholder="收到的验证码"
                   >
                   <template slot="append">
-                    <el-button :disabled="checkPhoneValid" @click="getCode" >获取验证码</el-button>
+                    <el-button :disabled="checkPhoneValid" @click="getCode">获取验证码</el-button>
                   </template>
                   </el-input>
                 </el-form-item>
@@ -61,7 +61,7 @@
                   </el-checkbox-group>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" class="login_btn" @click="login('codeForm')">登 录</el-button>
+                  <el-button type="primary" class="login_btn" @click="login('codeForm')" >登 录</el-button>
                 </el-form-item>
               </el-form>
               <div class="other_ops">

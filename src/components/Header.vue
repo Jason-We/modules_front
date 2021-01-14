@@ -61,12 +61,16 @@ export default {
 <style scoped>
 .header {
   display: block;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 70px;
   border-bottom: 2px solid rgb(223, 234, 245);
+  z-index: 10;
+  -webkit-box-shadow: 0 5px 8px 0 rgba(64,106,103,.13);
+  box-shadow: 0 5px 8px 0 rgba(64,106,103,.13);
+  background: rgba(255,255,255,.95);
 }
 .el-menu.el-menu--horizontal{
   border-bottom: 2px solid rgb(223, 234, 245);

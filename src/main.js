@@ -7,6 +7,10 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.config.productionTip = false
 Vue.use(ElementUI, { size: 'small', zIndex: 3000 });
+
+// 使请求带上凭证信息
+axios.defaults.withCredentials = true
+
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
   document.title = `${to.meta.title} | modules`;
