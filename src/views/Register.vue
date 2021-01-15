@@ -185,14 +185,11 @@ export default {
           if(this.togle){
             alert('抱歉，暂不支持手机号注册qaq');
           }else{
-            axios.get('/regis',{
-              params:{
-                regType:'mail',
-                regNum:this.form.mail,
-                code:this.form.v_code,
-                nickname:this.form.nick,
-                password:this.form.password              
-              }
+            axios.post('/register',{
+              mail:this.form.mail,
+              code:this.form.v_code,
+              nickname:this.form.nick,
+              password:this.form.password              
             }).then(function (res) {
                 if(res.status === 200){
                   if(res.data.code === 200){
