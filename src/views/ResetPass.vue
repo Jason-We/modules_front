@@ -76,23 +76,26 @@ export default {
       console.log(this.$store.state.forget_pheormal);
       this.$refs.form.validate((valid) => {
         if(valid){
-          axios.get('/resetPass',{
-            params:{
-              pheormal:_this.$store.state.forget_pheormal,
-              newPass:_this.form.pass
-            }
-          }).then(function(res){
-            if(res.status === 200){
-              if(res.data.code === 200){
-                _this.$message.success("修改成功,5s后将跳转到登录页");
-                setTimeout(() => {
-                  _this.$router.replace('/login');
-                },5000)
-              }else{
-                _this.$message.success("修改失败"+res.data.msg);
+          if(_this.$store.state.forget_pheormal.indexOf("@") != -1){
+            axios.post('/resetPass',{
+              mail:_this.$store.state.forget_pheormal,
+              password:_this.form.pass
+            }).then(function(res){
+              if(res.status === 200){
+                if(res.data.code === 200){
+                  _this.$message.success("修改成功,5s后将跳转到登录页");
+                  setTimeout(() => {
+                    _this.$router.replace('/login');
+                  },5000)
+                }else{
+                  _this.$message.success("修改失败"+res.data.msg);
+                }
               }
-            }
-          })
+            })
+          }else{
+            alert('暂未开通手机号注册哦');
+          }
+          
         }
       })
     }
