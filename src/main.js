@@ -13,7 +13,7 @@ axios.defaults.withCredentials = true
 
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
-  document.title = `${to.meta.title} | modules`;
+  document.title = `${to.meta.title}`;
   let role = sessionStorage.getItem('userlogin');
   if (!role && to.meta.permission) {
     next('/');

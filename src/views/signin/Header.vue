@@ -43,9 +43,10 @@
                 <i class="el-icon-s-custom"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="admin">Admin</el-dropdown-item>
-                <el-dropdown-item command="help">Help</el-dropdown-item>
-                <el-dropdown-item command="logout">Sign out</el-dropdown-item>
+                <el-dropdown-item command="personal">我的主页</el-dropdown-item>
+                <el-dropdown-item command="help">帮助</el-dropdown-item>
+                <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+                <el-dropdown-item command="admin" divided>后台管理</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
@@ -93,6 +94,8 @@ export default {
         this.$router.push('/info');
       }else if(cmd === 'admin'){
         this.$router.push('/admin');
+      }else if(cmd === 'personal'){
+        this.$router.push('/personal');
       }
     }
   }
