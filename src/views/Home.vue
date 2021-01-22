@@ -40,6 +40,19 @@
     top: 70px;
     left: 0;
     right: 0;
-    width : 100%;
+    margin: 0 auto;
+    min-width:600px;
+    max-width :1200px;
+    width:900px;
+  }
+  @media screen and (max-width: 1000px) {
+    .content {
+      width:600px;
+    }
+  }
+  @media screen and (min-width: 1300px) {
+    .content {
+      width:1200px;
+    }
   }
 </style>
